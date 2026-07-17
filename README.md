@@ -1,23 +1,26 @@
-# Super Desafios Kids — Testing, Security & Release Pack v0.9
+# Super Desafios Kids — MVP Implementation Pack v1.0
 
-Este pacote define como validar, proteger e publicar o Super Desafios Kids.
+Este pacote transforma a documentação anterior num plano de implementação direto para o Codex.
 
-## Conteúdo
+## Âmbito do MVP
 
-- Estratégia completa de testes
-- Testes unitários, integração, UI e end-to-end
-- Matriz de dispositivos
-- Gestão de bugs
-- Privacidade e segurança infantil
-- Gestão de consentimento
-- Segurança de dependências e armazenamento
-- Versionamento e releases
-- Publicação Web, Android e iOS
-- Checklist de lançamento
-- Plano de rollback
-- Critérios de aceitação para release
+- Perfis infantis
+- Seleção de idade e avatar
+- Adaptive Learning Engine inicial
+- Jogo de Matemática
+- Jogo de Palavras
+- Sistema de recompensas
+- Estatísticas locais
+- Área dos Pais
+- Definições e acessibilidade
+- Persistência offline
+- PWA
+
+## Objetivo
+
+Permitir que o Codex implemente uma primeira versão funcional, testável e publicável na Web.
 
 ## Estado
 
-Versão documental: `0.9.0`  
-Estado: `Draft operacional para pré-MVP`
+Versão documental: `1.0.0`  
+Estado: `Ready for implementation`

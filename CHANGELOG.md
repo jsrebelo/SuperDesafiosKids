@@ -1,17 +1,14 @@
 # Changelog
 
-## v0.9.0
+## v1.0.0
 
 ### Adicionado
 
-- Estratégia de QA.
-- Planos de testes automatizados e manuais.
-- Matriz de dispositivos e navegadores.
-- Processo de gestão de bugs.
-- Regras de segurança e privacidade infantil.
-- Regras de consentimento e minimização de dados.
-- Política de dependências.
-- Estratégia de release e versionamento.
-- Guias de publicação Web, Android e iOS.
-- Plano de rollback.
-- Checklist de lançamento.
+- Especificações finais do MVP.
+- Requisitos funcionais e não funcionais do MVP.
+- Critérios de aceitação por módulo.
+- Contratos iniciais de domínio.
+- Fluxos Mermaid.
+- Backlog dividido por sprints.
+- Prompt mestre para o Codex.
+- Checklist de preparação para implementação.
