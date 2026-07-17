@@ -1,8 +1,10 @@
 import { describe, expect, it } from "vitest";
 import type { ProgressRepository } from "../ports/ProgressRepository";
 import type { RewardRepository } from "../ports/RewardRepository";
+import type { AttemptRepository } from "../ports/AttemptRepository";
 import type { SkillId, SkillProgress } from "../../domain/learning/Skill";
 import type { RewardWallet } from "../../domain/rewards/RewardWallet";
+import type { ExerciseAttempt } from "../../domain/attempts/ExerciseAttempt";
 import { AdaptiveLearningEngine } from "../../domain/learning/AdaptiveLearningEngine";
 import { RewardCalculator } from "../../domain/rewards/RewardCalculator";
 import { SubmitWordAnswer } from "./SubmitWordAnswer";
@@ -34,11 +36,24 @@ class MemoryRewardRepository implements RewardRepository {
   }
 }
 
+class MemoryAttemptRepository implements AttemptRepository {
+  private attempts: ExerciseAttempt[] = [];
+
+  public async save(attempt: ExerciseAttempt): Promise<void> {
+    this.attempts.push(attempt);
+  }
+
+  public async listByProfile(_profileId: string): Promise<ExerciseAttempt[]> {
+    return this.attempts;
+  }
+}
+
 describe("SubmitWordAnswer", () => {
   it("atribui recompensa por resposta correta", async () => {
     const useCase = new SubmitWordAnswer(
       new MemoryProgressRepository(),
       new MemoryRewardRepository(),
+      new MemoryAttemptRepository(),
       new AdaptiveLearningEngine(),
       new RewardCalculator(),
     );

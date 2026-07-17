@@ -6,6 +6,7 @@ import "./shared/styles/math.css";
 import "./shared/styles/rewards.css";
 import "./shared/styles/words.css";
 import "./shared/styles/parents.css";
+import "./shared/styles/accessibility.css";
 
 const rootElement = document.getElementById("root");
 
