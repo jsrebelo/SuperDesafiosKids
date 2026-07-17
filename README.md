@@ -1,24 +1,20 @@
-# Super Desafios Kids — v1.5 Word Game & Portuguese Content
+# Super Desafios Kids — v1.6 Attempts, Statistics, Parent Dashboard & Daily Limit
 
-Este pacote acrescenta o primeiro jogo de Português ao MVP.
+Este pacote acrescenta:
 
-## Incluído
-
-- banco inicial de palavras em português de Portugal;
-- palavras organizadas por idade e dificuldade;
-- seleção de palavra adequada ao perfil;
-- remoção de uma letra;
-- quatro opções de resposta;
-- validação;
-- ligação ao Adaptive Learning Engine;
-- recompensas partilhadas;
-- ecrã de Palavras;
-- integração no menu principal;
-- testes unitários e de interface.
+- histórico local de tentativas;
+- métricas por perfil;
+- estatísticas de Matemática e Palavras;
+- painel básico dos pais;
+- carteira visível no menu principal;
+- limite diário de utilização;
+- bloqueio amigável quando o limite é atingido;
+- persistência local;
+- testes iniciais.
 
 ## Integração
 
-Copiar os ficheiros por cima da versão v1.4.
+Copiar estes ficheiros por cima da versão v1.5.
 
 Depois executar:
 

@@ -1,17 +1,22 @@
 import type { ChildProfile } from "../../domain/profiles/ChildProfile";
+import type { RewardWallet } from "../../domain/rewards/RewardWallet";
 import { Button } from "../../shared/components/Button";
 
 interface HomeScreenProps {
   readonly profile: ChildProfile;
+  readonly wallet: RewardWallet;
   readonly onOpenMath: () => void;
   readonly onOpenWords: () => void;
+  readonly onOpenParents: () => void;
   readonly onChangeProfile: () => void;
 }
 
 export function HomeScreen({
   profile,
+  wallet,
   onOpenMath,
   onOpenWords,
+  onOpenParents,
   onChangeProfile,
 }: HomeScreenProps) {
   return (
@@ -20,6 +25,12 @@ export function HomeScreen({
         <p className="eyebrow">Super Desafios Kids</p>
         <h1>Olá, {profile.displayName}!</h1>
         <p>Que desafio queres fazer hoje?</p>
+
+        <div className="wallet-strip" aria-label="Recompensas">
+          <span>{wallet.xp} XP</span>
+          <span>{wallet.coins} moedas</span>
+          <span>{wallet.stars} estrelas</span>
+        </div>
       </section>
 
       <section className="game-menu" aria-label="Jogos disponíveis">
@@ -43,6 +54,7 @@ export function HomeScreen({
       </section>
 
       <footer className="home-actions">
+        <Button onClick={onOpenParents}>Área dos Pais</Button>
         <Button onClick={onChangeProfile}>Mudar perfil</Button>
       </footer>
     </main>

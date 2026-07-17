@@ -1,5 +1,6 @@
 import type { ProgressRepository } from "../ports/ProgressRepository";
 import type { RewardRepository } from "../ports/RewardRepository";
+import type { AttemptRepository } from "../ports/AttemptRepository";
 import type { MissingLetterExercise } from "../../domain/words/WordEntry";
 import {
   createInitialSkillProgress,
@@ -34,8 +35,10 @@ export class SubmitWordAnswer {
   public constructor(
     private readonly progressRepository: ProgressRepository,
     private readonly rewardRepository: RewardRepository,
+    private readonly attemptRepository: AttemptRepository,
     private readonly engine: AdaptiveLearningEngine,
     private readonly rewardCalculator: RewardCalculator,
+    private readonly createId: () => string = crypto.randomUUID,
   ) {}
 
   public async execute(
@@ -71,6 +74,18 @@ export class SubmitWordAnswer {
 
     await this.progressRepository.save(progress);
     await this.rewardRepository.save(reward.wallet);
+    await this.attemptRepository.save({
+      id: this.createId(),
+      profileId: input.profileId,
+      gameId: "words",
+      exerciseId: input.exercise.id,
+      skillId,
+      difficulty: input.exercise.difficulty,
+      correct,
+      responseTimeMs: input.responseTimeMs,
+      hintsUsed: input.hintsUsed,
+      createdAt: new Date().toISOString(),
+    });
 
     return {
       correct,
