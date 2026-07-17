@@ -1,17 +1,14 @@
 # Changelog
 
-## v1.7.0
+## v1.8.0
 
 ### Adicionado
 
-- Proteção da área dos pais.
-- PIN local configurável.
-- Edição de perfis.
-- Arquivo de perfis.
-- Definições de acessibilidade.
-- Alto contraste.
-- Movimento reduzido.
-- Fonte amigável para dislexia.
-- Leitura por voz.
-- Contratos de armazenamento preparados para IndexedDB.
-- Testes de acesso parental e definições.
+- Base de dados IndexedDB.
+- Migração automática de dados locais.
+- Repositórios IndexedDB.
+- Registo real de duração de sessões.
+- Atualização do uso diário.
+- Exportação JSON para responsáveis.
+- Recuperação de falhas e fallback controlado.
+- Testes iniciais da infraestrutura de dados.

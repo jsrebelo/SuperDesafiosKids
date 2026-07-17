@@ -1,22 +1,18 @@
-# Super Desafios Kids — v1.7 Parent Access, Profile Management, Accessibility & IndexedDB
+# Super Desafios Kids — v1.8 IndexedDB, Migration, Session Tracking & Parent Export
 
 Este pacote acrescenta:
 
-- acesso protegido à área dos pais;
-- PIN configurável;
-- edição de perfis;
-- arquivo de perfis;
-- definições de acessibilidade;
-- alto contraste;
-- movimento reduzido;
-- fonte amigável para dislexia;
-- leitura por voz configurável;
-- preparação da migração de armazenamento para IndexedDB;
-- testes iniciais.
+- infraestrutura IndexedDB;
+- migração automática de dados existentes em localStorage;
+- repositórios IndexedDB para perfis, progresso, tentativas, recompensas, uso diário e definições;
+- registo real de duração de sessão;
+- recuperação segura de falhas;
+- exportação local dos dados do perfil em JSON;
+- documentação e testes iniciais.
 
 ## Integração
 
-Copiar estes ficheiros por cima da versão v1.6.
+Copiar estes ficheiros por cima da versão v1.7.
 
 Depois executar:
 
