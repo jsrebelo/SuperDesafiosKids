@@ -4,12 +4,14 @@ import { Button } from "../../shared/components/Button";
 interface HomeScreenProps {
   readonly profile: ChildProfile;
   readonly onOpenMath: () => void;
+  readonly onOpenWords: () => void;
   readonly onChangeProfile: () => void;
 }
 
 export function HomeScreen({
   profile,
   onOpenMath,
+  onOpenWords,
   onChangeProfile,
 }: HomeScreenProps) {
   return (
@@ -26,17 +28,17 @@ export function HomeScreen({
             🧮
           </span>
           <h2>Matemática</h2>
-          <p>Contar, somar e subtrair.</p>
-          <Button onClick={onOpenMath}>Jogar</Button>
+          <p>Contar, somar, subtrair, multiplicar e dividir.</p>
+          <Button onClick={onOpenMath}>Jogar Matemática</Button>
         </article>
 
-        <article className="game-menu-card game-menu-card--locked">
+        <article className="game-menu-card">
           <span className="game-menu-icon" aria-hidden="true">
             🔤
           </span>
           <h2>Palavras</h2>
-          <p>Disponível numa próxima versão.</p>
-          <Button disabled>Em breve</Button>
+          <p>Escolher a letra que falta.</p>
+          <Button onClick={onOpenWords}>Jogar Palavras</Button>
         </article>
       </section>
 

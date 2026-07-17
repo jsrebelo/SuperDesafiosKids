@@ -1,0 +1,32 @@
+.word-game-card {
+  background: #ffffff;
+  border: 2px solid #dce5ff;
+  border-radius: 24px;
+  padding: 1.5rem;
+  text-align: center;
+  box-shadow: 0 12px 32px rgba(55, 72, 120, 0.1);
+}
+
+.word-image {
+  display: block;
+  font-size: 6rem;
+  margin-block: 1rem;
+}
+
+.word-prompt {
+  letter-spacing: 0.35rem;
+  font-size: clamp(2rem, 8vw, 4rem);
+}
+
+.letter-options {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 1rem;
+}
+
+.letter-options .button {
+  min-width: 84px;
+  min-height: 72px;
+  font-size: 1.75rem;
+}

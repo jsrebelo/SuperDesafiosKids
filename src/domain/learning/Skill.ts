@@ -3,7 +3,8 @@ export type SkillId =
   | "math.addition"
   | "math.subtraction"
   | "math.multiplication"
-  | "math.division";
+  | "math.division"
+  | "portuguese.missing-letter";
 
 export interface SkillProgress {
   readonly profileId: string;
