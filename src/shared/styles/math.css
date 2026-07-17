@@ -1,31 +1,22 @@
-.skill-tabs,
-.answer-grid {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 1rem;
-  margin-bottom: 1.5rem;
+:root {
+  color-scheme: light;
 }
 
-.game-card {
+.math-card {
+  border: 1px solid #d1d5db;
+  border-radius: 12px;
+  padding: 1rem;
   background: #ffffff;
-  border: 2px solid #dce5ff;
-  border-radius: 24px;
-  padding: 1.5rem;
-  text-align: center;
-  box-shadow: 0 12px 32px rgba(55, 72, 120, 0.1);
+  box-shadow: 0 8px 24px rgba(15, 23, 42, 0.06);
 }
 
-.answer-grid {
-  justify-content: center;
+.math-card h3 {
+  margin-top: 0;
+  color: #1f2937;
 }
 
-.answer-grid .button {
-  min-width: 120px;
-  min-height: 72px;
-  font-size: 1.5rem;
-}
-
-.feedback-message {
-  min-height: 2rem;
-  font-weight: 800;
+.math-grid {
+  display: grid;
+  gap: 0.75rem;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
 }
