@@ -23,6 +23,8 @@ export class MathExerciseGenerator {
         return this.multiplication(level);
       case "math.division":
         return this.division(level);
+      default:
+        return this.addition(level);
     }
   }
 

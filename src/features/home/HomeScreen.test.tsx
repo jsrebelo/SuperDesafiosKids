@@ -16,16 +16,18 @@ const profile: ChildProfile = {
 describe("HomeScreen", () => {
   it("abre o jogo de matemática", () => {
     const onOpenMath = vi.fn();
+    const onOpenWords = vi.fn();
 
     render(
       <HomeScreen
         profile={profile}
         onOpenMath={onOpenMath}
+        onOpenWords={onOpenWords}
         onChangeProfile={() => undefined}
       />,
     );
 
-    fireEvent.click(screen.getByRole("button", { name: "Jogar" }));
+    fireEvent.click(screen.getByRole("button", { name: "Jogar Matemática" }));
     expect(onOpenMath).toHaveBeenCalledOnce();
   });
 });

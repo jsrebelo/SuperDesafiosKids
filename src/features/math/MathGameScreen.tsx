@@ -180,13 +180,14 @@ function initialLevel(age: number): number {
 }
 
 function label(skill: SkillId): string {
-  const labels: Record<SkillId, string> = {
+  const labels: Partial<Record<SkillId, string>> = {
     "math.counting": "Contar",
     "math.addition": "Somar",
     "math.subtraction": "Subtrair",
     "math.multiplication": "Multiplicar",
     "math.division": "Dividir",
+    "portuguese.missing-letter": "Letras",
   };
 
-  return labels[skill];
+  return labels[skill] ?? "Jogo";
 }
