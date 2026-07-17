@@ -1,26 +1,38 @@
-# Super Desafios Kids — MVP Implementation Pack v1.0
+# Super Desafios Kids — Sprint 1 Foundation Code Pack
 
-Este pacote transforma a documentação anterior num plano de implementação direto para o Codex.
+Primeira base executável do MVP.
 
-## Âmbito do MVP
+## Incluído
 
-- Perfis infantis
-- Seleção de idade e avatar
-- Adaptive Learning Engine inicial
-- Jogo de Matemática
-- Jogo de Palavras
-- Sistema de recompensas
-- Estatísticas locais
-- Área dos Pais
-- Definições e acessibilidade
-- Persistência offline
+- React + TypeScript + Vite
 - PWA
+- Arquitetura inicial por camadas
+- Entidade `ChildProfile`
+- Caso de utilização `CreateChildProfile`
+- Repositório local no navegador
+- Seleção e criação de perfis
+- Testes iniciais
+- Interface em português de Portugal
 
-## Objetivo
+## Executar
 
-Permitir que o Codex implemente uma primeira versão funcional, testável e publicável na Web.
+```bash
+npm install
+npm run dev
+```
 
-## Estado
+## Validar
 
-Versão documental: `1.0.0`  
-Estado: `Ready for implementation`
+```bash
+npm run typecheck
+npm test
+npm run build
+```
+
+## Próximo incremento
+
+- edição e arquivo de perfis;
+- IndexedDB;
+- perfil ativo;
+- Adaptive Learning Engine inicial;
+- primeiro gerador de matemática.
