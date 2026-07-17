@@ -8,9 +8,17 @@ export interface ChildProfile {
   readonly createdAt: string;
   readonly updatedAt: string;
   readonly isActive: boolean;
+  readonly archivedAt?: string;
 }
 
 export interface CreateChildProfileInput {
+  readonly displayName: string;
+  readonly age: ChildAge;
+  readonly avatarId: string;
+}
+
+export interface UpdateChildProfileInput {
+  readonly id: string;
   readonly displayName: string;
   readonly age: ChildAge;
   readonly avatarId: string;

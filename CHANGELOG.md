@@ -1,14 +1,17 @@
 # Changelog
 
-## v1.6.0
+## v1.7.0
 
 ### Adicionado
 
-- Registo de tentativas.
-- Repositório local de tentativas.
-- Estatísticas por perfil.
-- Painel básico dos pais.
-- Carteira visível no menu principal.
-- Limite diário de utilização.
-- Ecrã de limite atingido.
-- Testes de estatísticas e controlo diário.
+- Proteção da área dos pais.
+- PIN local configurável.
+- Edição de perfis.
+- Arquivo de perfis.
+- Definições de acessibilidade.
+- Alto contraste.
+- Movimento reduzido.
+- Fonte amigável para dislexia.
+- Leitura por voz.
+- Contratos de armazenamento preparados para IndexedDB.
+- Testes de acesso parental e definições.

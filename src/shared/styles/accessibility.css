@@ -1,0 +1,53 @@
+body.high-contrast {
+  color: #000000;
+  background: #ffffff;
+}
+
+body.high-contrast .hero-card,
+body.high-contrast .form-card,
+body.high-contrast .profile-card,
+body.high-contrast .game-card,
+body.high-contrast .game-menu-card,
+body.high-contrast .word-game-card,
+body.high-contrast .summary-card {
+  border-color: #000000;
+  box-shadow: none;
+}
+
+body.dyslexia-friendly {
+  font-family: Verdana, Arial, sans-serif;
+  letter-spacing: 0.03em;
+  word-spacing: 0.08em;
+}
+
+body.reduced-motion *,
+body.reduced-motion *::before,
+body.reduced-motion *::after {
+  animation: none !important;
+  transition: none !important;
+  scroll-behavior: auto !important;
+}
+
+.settings-list {
+  display: grid;
+  gap: 1rem;
+}
+
+.toggle-row {
+  grid-template-columns: 1fr auto;
+  align-items: center;
+  min-height: 52px;
+  padding: 0.75rem;
+  border: 2px solid #dce5ff;
+  border-radius: 14px;
+}
+
+.toggle-row input {
+  width: 28px;
+  height: 28px;
+}
+
+.management-list {
+  display: grid;
+  gap: 1rem;
+}
