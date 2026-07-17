@@ -1,5 +1,5 @@
 import { fireEvent, render, screen } from "@testing-library/react";
-import { describe, expect, it } from "vitest";
+import { describe, expect, it, vi } from "vitest";
 import type { ProfileRepository } from "../../application/ports/ProfileRepository";
 import { CreateChildProfile } from "../../application/use-cases/CreateChildProfile";
 import type { ChildProfile } from "../../domain/profiles/ChildProfile";
@@ -25,8 +25,9 @@ class MemoryProfileRepository implements ProfileRepository {
 }
 
 describe("ProfileScreen", () => {
-  it("permite criar um perfil", async () => {
+  it("cria e seleciona um perfil", async () => {
     const repository = new MemoryProfileRepository();
+    const onProfileSelected = vi.fn();
     const createProfile = new CreateChildProfile(
       repository,
       () => "profile-1",
@@ -37,15 +38,20 @@ describe("ProfileScreen", () => {
       <ProfileScreen
         repository={repository}
         createChildProfile={createProfile}
+        onProfileSelected={onProfileSelected}
       />,
     );
 
     fireEvent.change(screen.getByLabelText("Nome"), {
       target: { value: "Tomás" },
     });
-    fireEvent.click(screen.getByRole("button", { name: "Criar perfil" }));
+    fireEvent.click(
+      screen.getByRole("button", { name: "Criar perfil" }),
+    );
 
-    expect(await screen.findByText("Perfil criado com sucesso!")).toBeInTheDocument();
-    expect(await screen.findByText("Tomás")).toBeInTheDocument();
+    expect(
+      await screen.findByText("Perfil criado com sucesso!"),
+    ).toBeInTheDocument();
+    expect(onProfileSelected).toHaveBeenCalled();
   });
 });

@@ -1,15 +1,24 @@
-# Super Desafios Kids — v1.2 ALE & Math Foundation
+# Super Desafios Kids — v1.3 Navigation, Active Profile & Complete Math
 
-Adiciona:
-- Adaptive Learning Engine inicial;
-- progresso por competência;
-- geradores de contagem, soma e subtração;
-- submissão de respostas;
-- persistência local;
-- ecrã de Matemática;
-- testes.
+Este pacote liga a seleção de perfis ao menu principal e ao jogo de Matemática.
 
-Copiar por cima da v1.1 e executar:
+## Incluído
+
+- navegação simples sem dependência externa;
+- perfil ativo;
+- ecrã inicial;
+- menu de jogos;
+- ligação ao módulo de Matemática;
+- regresso ao início;
+- persistência do perfil ativo;
+- composição da aplicação atualizada;
+- testes básicos do fluxo.
+
+## Como integrar
+
+Copiar estes ficheiros por cima da versão v1.2.
+
+Depois executar:
 
 ```bash
 npm install

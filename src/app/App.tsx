@@ -1,19 +1,77 @@
-import { useMemo } from "react";
+import { useMemo, useState } from "react";
 import { CreateChildProfile } from "../application/use-cases/CreateChildProfile";
-import { BrowserProfileRepository } from "../infrastructure/storage/BrowserProfileRepository";
+import { SubmitMathAnswer } from "../application/use-cases/SubmitMathAnswer";
+import { AdaptiveLearningEngine } from "../domain/learning/AdaptiveLearningEngine";
+import type { ChildProfile } from "../domain/profiles/ChildProfile";
+import { HomeScreen } from "../features/home/HomeScreen";
+import { MathGameScreen } from "../features/math/MathGameScreen";
 import { ProfileScreen } from "../features/profiles/ProfileScreen";
+import { BrowserProfileRepository } from "../infrastructure/storage/BrowserProfileRepository";
+import { BrowserProgressRepository } from "../infrastructure/storage/BrowserProgressRepository";
+
+type Screen = "profiles" | "home" | "math";
 
 export function App() {
-  const repository = useMemo(() => new BrowserProfileRepository(), []);
+  const profileRepository = useMemo(
+    () => new BrowserProfileRepository(),
+    [],
+  );
+  const progressRepository = useMemo(
+    () => new BrowserProgressRepository(),
+    [],
+  );
   const createChildProfile = useMemo(
-    () => new CreateChildProfile(repository, crypto.randomUUID),
-    [repository],
+    () => new CreateChildProfile(profileRepository, crypto.randomUUID),
+    [profileRepository],
+  );
+  const submitMathAnswer = useMemo(
+    () =>
+      new SubmitMathAnswer(
+        progressRepository,
+        new AdaptiveLearningEngine(),
+      ),
+    [progressRepository],
   );
 
+  const [activeProfile, setActiveProfile] =
+    useState<ChildProfile | null>(null);
+  const [screen, setScreen] = useState<Screen>("profiles");
+
+  function handleProfileSelected(profile: ChildProfile) {
+    setActiveProfile(profile);
+    setScreen("home");
+  }
+
+  function handleChangeProfile() {
+    setActiveProfile(null);
+    setScreen("profiles");
+  }
+
+  if (!activeProfile || screen === "profiles") {
+    return (
+      <ProfileScreen
+        repository={profileRepository}
+        createChildProfile={createChildProfile}
+        onProfileSelected={handleProfileSelected}
+      />
+    );
+  }
+
+  if (screen === "math") {
+    return (
+      <MathGameScreen
+        profile={activeProfile}
+        submitMathAnswer={submitMathAnswer}
+        onExit={() => setScreen("home")}
+      />
+    );
+  }
+
   return (
-    <ProfileScreen
-      repository={repository}
-      createChildProfile={createChildProfile}
+    <HomeScreen
+      profile={activeProfile}
+      onOpenMath={() => setScreen("math")}
+      onChangeProfile={handleChangeProfile}
     />
   );
 }

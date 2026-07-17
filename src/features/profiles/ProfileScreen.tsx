@@ -10,6 +10,7 @@ import { Button } from "../../shared/components/Button";
 interface ProfileScreenProps {
   readonly repository: ProfileRepository;
   readonly createChildProfile: CreateChildProfile;
+  readonly onProfileSelected: (profile: ChildProfile) => void;
 }
 
 const avatars = ["raposa", "panda", "robot", "dinossauro"] as const;
@@ -18,6 +19,7 @@ const ages: ChildAge[] = [5, 6, 7, 8, 9, 10];
 export function ProfileScreen({
   repository,
   createChildProfile,
+  onProfileSelected,
 }: ProfileScreenProps) {
   const [profiles, setProfiles] = useState<ChildProfile[]>([]);
   const [displayName, setDisplayName] = useState("");
@@ -26,8 +28,14 @@ export function ProfileScreen({
   const [message, setMessage] = useState("");
 
   const loadProfiles = useCallback(async () => {
-    setProfiles(await repository.list());
-  }, [repository]);
+    const items = await repository.list();
+    setProfiles(items);
+
+    const active = items.find((profile) => profile.isActive);
+    if (active) {
+      onProfileSelected(active);
+    }
+  }, [onProfileSelected, repository]);
 
   useEffect(() => {
     void loadProfiles();
@@ -38,19 +46,38 @@ export function ProfileScreen({
     setMessage("");
 
     try {
-      await createChildProfile.execute({ displayName, age, avatarId });
+      const created = await createChildProfile.execute({
+        displayName,
+        age,
+        avatarId,
+      });
+
       setDisplayName("");
       setMessage("Perfil criado com sucesso!");
-      await loadProfiles();
+      await repository.setActive(created.id);
+
+      const selected = {
+        ...created,
+        isActive: true,
+      };
+
+      onProfileSelected(selected);
     } catch (error) {
-      setMessage(error instanceof Error ? error.message : "Não foi possível criar o perfil.");
+      setMessage(
+        error instanceof Error
+          ? error.message
+          : "Não foi possível criar o perfil.",
+      );
     }
   }
 
-  async function handleSelect(profileId: string) {
-    await repository.setActive(profileId);
-    setMessage("Perfil selecionado. Vamos aprender!");
-    await loadProfiles();
+  async function handleSelect(profile: ChildProfile) {
+    await repository.setActive(profile.id);
+
+    onProfileSelected({
+      ...profile,
+      isActive: true,
+    });
   }
 
   return (
@@ -68,17 +95,14 @@ export function ProfileScreen({
             <p>Ainda não existem perfis.</p>
           ) : (
             profiles.map((profile) => (
-              <article
-                className={`profile-card ${profile.isActive ? "profile-card--active" : ""}`}
-                key={profile.id}
-              >
+              <article className="profile-card" key={profile.id}>
                 <span className="profile-avatar" aria-hidden="true">
                   {avatarSymbol(profile.avatarId)}
                 </span>
                 <h3>{profile.displayName}</h3>
                 <p>{profile.age} anos</p>
-                <Button onClick={() => void handleSelect(profile.id)}>
-                  {profile.isActive ? "Selecionado" : "Escolher"}
+                <Button onClick={() => void handleSelect(profile)}>
+                  Escolher
                 </Button>
               </article>
             ))
@@ -88,6 +112,7 @@ export function ProfileScreen({
 
       <section className="form-card" aria-labelledby="create-title">
         <h2 id="create-title">Criar perfil</h2>
+
         <form onSubmit={(event) => void handleCreate(event)}>
           <label>
             Nome
@@ -102,7 +127,9 @@ export function ProfileScreen({
           <label>
             Idade
             <select
-              onChange={(event) => setAge(Number(event.target.value) as ChildAge)}
+              onChange={(event) =>
+                setAge(Number(event.target.value) as ChildAge)
+              }
               value={age}
             >
               {ages.map((item) => (
@@ -134,6 +161,7 @@ export function ProfileScreen({
 
           <Button type="submit">Criar perfil</Button>
         </form>
+
         <p aria-live="polite">{message}</p>
       </section>
     </main>

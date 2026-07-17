@@ -9,6 +9,7 @@ import { Button } from "../../shared/components/Button";
 interface Props {
   readonly profile: ChildProfile;
   readonly submitMathAnswer: SubmitMathAnswer;
+  readonly onExit: () => void;
 }
 
 const skills: readonly SkillId[] = [
@@ -17,7 +18,11 @@ const skills: readonly SkillId[] = [
   "math.subtraction",
 ];
 
-export function MathGameScreen({ profile, submitMathAnswer }: Props) {
+export function MathGameScreen({
+  profile,
+  submitMathAnswer,
+  onExit,
+}: Props) {
   const generator = useMemo(() => new MathExerciseGenerator(), []);
   const [skillId, setSkillId] = useState<SkillId>("math.addition");
   const [level, setLevel] = useState(initialLevel(profile.age));
@@ -29,6 +34,8 @@ export function MathGameScreen({ profile, submitMathAnswer }: Props) {
   const startedAt = useRef(performance.now());
 
   function changeSkill(next: SkillId) {
+    if (locked) return;
+
     setSkillId(next);
     setExercise(generator.generate(next, level));
     setFeedback("");
@@ -37,6 +44,7 @@ export function MathGameScreen({ profile, submitMathAnswer }: Props) {
 
   async function answer(selectedAnswer: number) {
     if (locked) return;
+
     setLocked(true);
 
     const output = await submitMathAnswer.execute({
@@ -44,7 +52,9 @@ export function MathGameScreen({ profile, submitMathAnswer }: Props) {
       profileAge: profile.age,
       exercise,
       selectedAnswer,
-      responseTimeMs: Math.round(performance.now() - startedAt.current),
+      responseTimeMs: Math.round(
+        performance.now() - startedAt.current,
+      ),
       hintsUsed: 0,
     });
 
@@ -56,7 +66,9 @@ export function MathGameScreen({ profile, submitMathAnswer }: Props) {
     );
 
     window.setTimeout(() => {
-      setExercise(generator.generate(skillId, output.progress.level));
+      setExercise(
+        generator.generate(skillId, output.progress.level),
+      );
       setFeedback("");
       setLocked(false);
       startedAt.current = performance.now();
@@ -65,6 +77,10 @@ export function MathGameScreen({ profile, submitMathAnswer }: Props) {
 
   return (
     <main className="page-shell">
+      <header className="screen-header">
+        <Button onClick={onExit}>Voltar ao início</Button>
+      </header>
+
       <section className="hero-card">
         <p className="eyebrow">Matemática</p>
         <h1>Olá, {profile.displayName}!</h1>
@@ -75,6 +91,7 @@ export function MathGameScreen({ profile, submitMathAnswer }: Props) {
         {skills.map((skill) => (
           <Button
             aria-pressed={skillId === skill}
+            disabled={locked}
             key={skill}
             onClick={() => changeSkill(skill)}
           >
@@ -86,6 +103,7 @@ export function MathGameScreen({ profile, submitMathAnswer }: Props) {
       <section className="game-card">
         <p>Nível {level}</p>
         <h2>{exercise.prompt}</h2>
+
         <div className="answer-grid">
           {exercise.options.map((option) => (
             <Button
@@ -97,6 +115,7 @@ export function MathGameScreen({ profile, submitMathAnswer }: Props) {
             </Button>
           ))}
         </div>
+
         <p aria-live="polite" className="feedback-message">
           {feedback}
         </p>
@@ -115,5 +134,6 @@ function label(skill: SkillId): string {
     "math.addition": "Somar",
     "math.subtraction": "Subtrair",
   };
+
   return labels[skill];
 }

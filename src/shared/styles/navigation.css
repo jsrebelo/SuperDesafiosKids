@@ -1,0 +1,32 @@
+.screen-header,
+.home-actions {
+  display: flex;
+  justify-content: flex-start;
+  margin-bottom: 1rem;
+}
+
+.game-menu {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 1rem;
+  margin-bottom: 2rem;
+}
+
+.game-menu-card {
+  background: #ffffff;
+  border: 2px solid #dce5ff;
+  border-radius: 24px;
+  padding: 1.5rem;
+  text-align: center;
+  box-shadow: 0 12px 32px rgba(55, 72, 120, 0.1);
+}
+
+.game-menu-card--locked {
+  opacity: 0.75;
+}
+
+.game-menu-icon {
+  display: block;
+  font-size: 4rem;
+  margin-bottom: 0.75rem;
+}

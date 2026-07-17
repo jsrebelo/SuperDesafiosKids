@@ -32,17 +32,22 @@ export class BrowserProfileRepository implements ProfileRepository {
       throw new Error("Perfil não encontrado.");
     }
 
+    const now = new Date().toISOString();
+
     this.save(
       profiles.map((profile) => ({
         ...profile,
         isActive: profile.id === profileId,
         updatedAt:
-          profile.id === profileId ? new Date().toISOString() : profile.updatedAt,
+          profile.id === profileId ? now : profile.updatedAt,
       })),
     );
   }
 
   private save(profiles: ChildProfile[]): void {
-    window.localStorage.setItem(STORAGE_KEY, JSON.stringify(profiles));
+    window.localStorage.setItem(
+      STORAGE_KEY,
+      JSON.stringify(profiles),
+    );
   }
 }
