@@ -1,24 +1,22 @@
-# Super Desafios Kids — Assets & Content Pack v0.7
+# Super Desafios Kids — Codex & Development Workflow Pack v0.8
 
-Este pacote define como todos os recursos visuais, sonoros e educativos devem ser criados, nomeados, organizados, validados e integrados no projeto.
+Este pacote define como o Codex e qualquer programador devem trabalhar no projeto.
 
 ## Conteúdo
 
-- Estratégia de assets
-- Mascotes e personagens
-- Mundos e cenários
-- Objetos educativos
-- Banco de palavras
-- Imagens de diferenças
-- Puzzles e memória
-- Áudio, música e voz
+- Guia principal para o Codex
+- Regras de arquitetura e código
 - Convenções de nomes
-- Formatos e tamanhos
-- Pipeline de produção
-- Licenciamento e direitos
-- Critérios de aceitação
+- Regras de componentes
+- Regras de testes
+- Fluxo de tarefas
+- Revisão de código
+- Definition of Done
+- Prompts reutilizáveis
+- Templates de especificação, tarefa, bug, sprint e ADR
+- Critérios de aceitação para alterações geradas por IA
 
 ## Estado
 
-Versão documental: `0.7.0`  
-Estado: `Draft para produção de conteúdo`
+Versão documental: `0.8.0`  
+Estado: `Draft operacional`
