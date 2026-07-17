@@ -1,25 +1,39 @@
-# Super Desafios Kids — v1.9 Data Import, PDF Reports, Schema Migrations & Release Candidate
+# Super Desafios Kids — v2.0.0-rc.1 Consolidated Release Candidate
 
-Este pacote acrescenta:
+Este pacote reúne num único repositório a documentação e o código produzidos entre as versões v0.5 e v1.9.
 
-- importação segura de dados exportados;
-- validação do ficheiro antes da importação;
-- estratégia de migração de esquemas;
-- relatório imprimível para os pais;
-- geração de relatório em HTML pronto para PDF;
-- checklist de release candidate;
-- testes iniciais de importação e migração;
-- preparação da v2.0 RC.
+## Incluído
 
-## Integração
+- documentação de produto, pedagogia, arquitetura, UI/UX, assets, testes, segurança, release e Codex;
+- React, TypeScript e Vite;
+- PWA;
+- perfis infantis;
+- Adaptive Learning Engine;
+- Matemática;
+- Palavras em pt-PT;
+- recompensas;
+- tentativas e estatísticas;
+- área dos pais;
+- acessibilidade;
+- IndexedDB e migração de localStorage;
+- importação e exportação de dados;
+- relatórios imprimíveis/PDF;
+- prompts e backlog para o Codex.
 
-Copiar estes ficheiros por cima da versão v1.8.
+## Estado
 
-Depois executar:
+Esta é uma **release candidate de consolidação**. Todos os ficheiros estão reunidos, mas o projeto deve ser validado pelo Codex antes de ser publicado, executando typecheck, testes e build e resolvendo os pontos em `docs/RC_KNOWN_ISSUES.md`.
+
+## Executar
 
 ```bash
 npm install
 npm run typecheck
 npm test
 npm run build
+npm run dev
 ```
+
+## Primeiro pedido ao Codex
+
+Usa o prompt em `prompts/FINALIZE_RELEASE_CANDIDATE.md`.
