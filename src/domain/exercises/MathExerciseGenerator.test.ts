@@ -9,23 +9,27 @@ class FixedRandom implements RandomSource {
 }
 
 describe("MathExerciseGenerator", () => {
-  it("gera soma com quatro opções únicas", () => {
+  it("gera multiplicação válida", () => {
     const generator = new MathExerciseGenerator(
       new FixedRandom(),
       () => "exercise-1",
     );
-    const exercise = generator.generate("math.addition", 2);
+
+    const exercise = generator.generate("math.multiplication", 3);
 
     expect(exercise.options).toContain(exercise.answer);
     expect(new Set(exercise.options).size).toBe(4);
   });
 
-  it("não gera subtração negativa", () => {
+  it("gera divisão exata", () => {
     const generator = new MathExerciseGenerator(
       new FixedRandom(),
       () => "exercise-2",
     );
-    const exercise = generator.generate("math.subtraction", 3);
-    expect(exercise.answer).toBeGreaterThanOrEqual(0);
+
+    const exercise = generator.generate("math.division", 3);
+
+    expect(Number.isInteger(exercise.answer)).toBe(true);
+    expect(exercise.answer).toBeGreaterThan(0);
   });
 });

@@ -1,0 +1,26 @@
+.summary-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+  gap: 1rem;
+  margin-bottom: 1.5rem;
+}
+
+.summary-card {
+  display: grid;
+  gap: 0.5rem;
+  justify-items: center;
+  background: #ffffff;
+  border: 2px solid #dce5ff;
+  border-radius: 20px;
+  padding: 1.25rem;
+}
+
+.summary-card strong {
+  font-size: 2rem;
+}
+
+.summary-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+}

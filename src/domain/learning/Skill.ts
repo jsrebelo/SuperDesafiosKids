@@ -1,7 +1,9 @@
 export type SkillId =
   | "math.counting"
   | "math.addition"
-  | "math.subtraction";
+  | "math.subtraction"
+  | "math.multiplication"
+  | "math.division";
 
 export interface SkillProgress {
   readonly profileId: string;

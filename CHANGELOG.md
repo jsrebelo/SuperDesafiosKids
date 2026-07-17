@@ -1,13 +1,13 @@
 # Changelog
 
-## v1.3.0
+## v1.4.0
 
 ### Adicionado
 
-- Perfil ativo persistente.
-- Navegação entre perfis, início e Matemática.
-- Ecrã inicial.
-- Menu principal do MVP.
-- Regresso seguro ao início.
-- Composição da aplicação atualizada.
-- Testes de navegação.
+- Competências de multiplicação e divisão.
+- Geradores de exercícios.
+- Carteira de recompensas.
+- Cálculo de XP, moedas e estrelas.
+- Resumo de sessão.
+- Persistência local da carteira.
+- Testes de recompensas e novos geradores.

@@ -5,6 +5,8 @@ import { MathExerciseGenerator } from "../../domain/exercises/MathExerciseGenera
 import type { MathExercise } from "../../domain/exercises/MathExercise";
 import type { SubmitMathAnswer } from "../../application/use-cases/SubmitMathAnswer";
 import { Button } from "../../shared/components/Button";
+import type { LearningSessionSummary } from "../../domain/sessions/LearningSession";
+import { SessionSummary } from "./SessionSummary";
 
 interface Props {
   readonly profile: ChildProfile;
@@ -16,6 +18,8 @@ const skills: readonly SkillId[] = [
   "math.counting",
   "math.addition",
   "math.subtraction",
+  "math.multiplication",
+  "math.division",
 ];
 
 export function MathGameScreen({
@@ -31,7 +35,15 @@ export function MathGameScreen({
   );
   const [feedback, setFeedback] = useState("");
   const [locked, setLocked] = useState(false);
-  const startedAt = useRef(performance.now());
+  const [summary, setSummary] = useState<LearningSessionSummary | null>(null);
+
+  const sessionStartedAt = useRef(new Date());
+  const questionStartedAt = useRef(performance.now());
+  const attempts = useRef(0);
+  const correctAnswers = useRef(0);
+  const xpEarned = useRef(0);
+  const coinsEarned = useRef(0);
+  const starsEarned = useRef(0);
 
   function changeSkill(next: SkillId) {
     if (locked) return;
@@ -39,7 +51,7 @@ export function MathGameScreen({
     setSkillId(next);
     setExercise(generator.generate(next, level));
     setFeedback("");
-    startedAt.current = performance.now();
+    questionStartedAt.current = performance.now();
   }
 
   async function answer(selectedAnswer: number) {
@@ -53,15 +65,21 @@ export function MathGameScreen({
       exercise,
       selectedAnswer,
       responseTimeMs: Math.round(
-        performance.now() - startedAt.current,
+        performance.now() - questionStartedAt.current,
       ),
       hintsUsed: 0,
     });
 
+    attempts.current += 1;
+    if (output.correct) correctAnswers.current += 1;
+    xpEarned.current += output.xpEarned;
+    coinsEarned.current += output.coinsEarned;
+    starsEarned.current += output.starsEarned;
+
     setLevel(output.progress.level);
     setFeedback(
       output.correct
-        ? "Excelente! Muito bem!"
+        ? `Excelente! +${output.xpEarned} XP e +${output.coinsEarned} moedas`
         : "Boa tentativa! Vamos experimentar outra vez.",
     );
 
@@ -71,14 +89,47 @@ export function MathGameScreen({
       );
       setFeedback("");
       setLocked(false);
-      startedAt.current = performance.now();
+      questionStartedAt.current = performance.now();
     }, 900);
+  }
+
+  function finishSession() {
+    setSummary({
+      profileId: profile.id,
+      startedAt: sessionStartedAt.current.toISOString(),
+      endedAt: new Date().toISOString(),
+      attempts: attempts.current,
+      correctAnswers: correctAnswers.current,
+      xpEarned: xpEarned.current,
+      coinsEarned: coinsEarned.current,
+      starsEarned: starsEarned.current,
+    });
+  }
+
+  if (summary) {
+    return (
+      <SessionSummary
+        profile={profile}
+        summary={summary}
+        onContinue={() => {
+          setSummary(null);
+          sessionStartedAt.current = new Date();
+          attempts.current = 0;
+          correctAnswers.current = 0;
+          xpEarned.current = 0;
+          coinsEarned.current = 0;
+          starsEarned.current = 0;
+          questionStartedAt.current = performance.now();
+        }}
+        onExit={onExit}
+      />
+    );
   }
 
   return (
     <main className="page-shell">
       <header className="screen-header">
-        <Button onClick={onExit}>Voltar ao início</Button>
+        <Button onClick={finishSession}>Terminar sessão</Button>
       </header>
 
       <section className="hero-card">
@@ -133,6 +184,8 @@ function label(skill: SkillId): string {
     "math.counting": "Contar",
     "math.addition": "Somar",
     "math.subtraction": "Subtrair",
+    "math.multiplication": "Multiplicar",
+    "math.division": "Dividir",
   };
 
   return labels[skill];
