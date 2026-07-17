@@ -1,3 +1,1 @@
-# Super Desafios Kids Platform
-
-Foundation Pack v0.2
+# Super Desafios Kids - Pedagogy Pack v0.3
