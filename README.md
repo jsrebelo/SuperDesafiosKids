@@ -1,3 +1,3 @@
 # Super Desafios Kids Platform
 
-Repositório oficial.
+Foundation Pack v0.2

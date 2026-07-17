@@ -1,4 +1,5 @@
 # Changelog
 
-## v0.1.0
-- Estrutura inicial.
+## v0.2.0
+- Added product documentation.
+- Expanded architecture docs.
