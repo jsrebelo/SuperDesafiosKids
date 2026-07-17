@@ -1,15 +1,15 @@
 # Changelog
 
-## v0.6.0
+## v0.7.0
 
 ### Adicionado
 
-- Guia de UI/UX infantil.
-- Design System inicial.
-- Tokens de cor, tipografia, espaçamento e movimento.
-- Catálogo inicial de componentes.
-- Regras de navegação e responsividade.
-- Estados de feedback e erro.
-- Regras de acessibilidade visual.
-- Fluxos Mermaid.
-- Critérios de aceitação.
+- Estratégia global de recursos.
+- Catálogo inicial de mascotes, mundos e objetos.
+- Regras para imagens de diferenças, memória e puzzles.
+- Convenções de nomes.
+- Formatos, resoluções e compressão.
+- Regras de áudio, voz e música.
+- Pipeline de produção e validação.
+- Regras de licenciamento.
+- Critérios de aceitação de assets.

@@ -1,0 +1,20 @@
+{
+  "id": "asset_example",
+  "type": "object",
+  "locale": "pt-PT",
+  "displayName": "Exemplo",
+  "category": "example",
+  "ageMin": 5,
+  "ageMax": 10,
+  "difficulty": 1,
+  "altText": "Descrição acessível",
+  "files": {
+    "default": "path/to/file.webp"
+  },
+  "license": {
+    "type": "original",
+    "author": "",
+    "source": ""
+  },
+  "status": "proposed"
+}

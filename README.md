@@ -1,23 +1,24 @@
-# Super Desafios Kids — UI/UX & Design System Pack v0.6
+# Super Desafios Kids — Assets & Content Pack v0.7
 
-Este pacote define a experiência visual e de interação do Super Desafios Kids.
+Este pacote define como todos os recursos visuais, sonoros e educativos devem ser criados, nomeados, organizados, validados e integrados no projeto.
 
 ## Conteúdo
 
-- Princípios de UX infantil
-- Navegação
-- Sistema de cores
-- Tipografia
-- Espaçamento
-- Componentes reutilizáveis
-- Estados e feedback
-- Animações
-- Responsividade
-- Acessibilidade visual
-- Diagramas de fluxo
-- Critérios de aceitação para implementação
+- Estratégia de assets
+- Mascotes e personagens
+- Mundos e cenários
+- Objetos educativos
+- Banco de palavras
+- Imagens de diferenças
+- Puzzles e memória
+- Áudio, música e voz
+- Convenções de nomes
+- Formatos e tamanhos
+- Pipeline de produção
+- Licenciamento e direitos
+- Critérios de aceitação
 
 ## Estado
 
-Versão documental: `0.6.0`  
-Estado: `Draft para implementação do MVP`
+Versão documental: `0.7.0`  
+Estado: `Draft para produção de conteúdo`
