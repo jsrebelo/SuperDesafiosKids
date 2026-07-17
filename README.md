@@ -1,1 +1,1 @@
-# Super Desafios Kids - Pedagogy Pack v0.3
+# Super Desafios Kids - Game Design Pack v0.4

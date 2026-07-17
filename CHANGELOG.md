@@ -1,4 +1,4 @@
 # Changelog
 
-## v0.3.0
-- Added pedagogy foundation.
+## v0.4.0
+- Added game design specifications.
