@@ -1,18 +1,19 @@
-# Super Desafios Kids — v1.8 IndexedDB, Migration, Session Tracking & Parent Export
+# Super Desafios Kids — v1.9 Data Import, PDF Reports, Schema Migrations & Release Candidate
 
 Este pacote acrescenta:
 
-- infraestrutura IndexedDB;
-- migração automática de dados existentes em localStorage;
-- repositórios IndexedDB para perfis, progresso, tentativas, recompensas, uso diário e definições;
-- registo real de duração de sessão;
-- recuperação segura de falhas;
-- exportação local dos dados do perfil em JSON;
-- documentação e testes iniciais.
+- importação segura de dados exportados;
+- validação do ficheiro antes da importação;
+- estratégia de migração de esquemas;
+- relatório imprimível para os pais;
+- geração de relatório em HTML pronto para PDF;
+- checklist de release candidate;
+- testes iniciais de importação e migração;
+- preparação da v2.0 RC.
 
 ## Integração
 
-Copiar estes ficheiros por cima da versão v1.7.
+Copiar estes ficheiros por cima da versão v1.8.
 
 Depois executar:
 
@@ -20,5 +21,5 @@ Depois executar:
 npm install
 npm run typecheck
 npm test
-npm run dev
+npm run build
 ```

@@ -1,14 +1,22 @@
-import { openDatabase, type StoreName } from "./Database";
+import type { StoreName } from "./Database";
+import { openMigratedDatabase } from "./SchemaMigration";
+
+let databasePromise: Promise<IDBDatabase> | null = null;
+
+function database(): Promise<IDBDatabase> {
+  databasePromise ??= openMigratedDatabase();
+  return databasePromise;
+}
 
 export class IndexedDbClient {
   public async get<T>(
     storeName: StoreName,
     key: IDBValidKey | IDBKeyRange,
   ): Promise<T | null> {
-    const database = await openDatabase();
+    const db = await database();
 
     return new Promise((resolve, reject) => {
-      const transaction = database.transaction(storeName, "readonly");
+      const transaction = db.transaction(storeName, "readonly");
       const request = transaction.objectStore(storeName).get(key);
 
       request.onsuccess = () =>
@@ -19,10 +27,10 @@ export class IndexedDbClient {
   }
 
   public async getAll<T>(storeName: StoreName): Promise<T[]> {
-    const database = await openDatabase();
+    const db = await database();
 
     return new Promise((resolve, reject) => {
-      const transaction = database.transaction(storeName, "readonly");
+      const transaction = db.transaction(storeName, "readonly");
       const request = transaction.objectStore(storeName).getAll();
 
       request.onsuccess = () => resolve(request.result as T[]);
@@ -35,33 +43,15 @@ export class IndexedDbClient {
     storeName: StoreName,
     value: T,
   ): Promise<void> {
-    const database = await openDatabase();
+    const db = await database();
 
     return new Promise((resolve, reject) => {
-      const transaction = database.transaction(storeName, "readwrite");
+      const transaction = db.transaction(storeName, "readwrite");
       transaction.objectStore(storeName).put(value);
 
       transaction.oncomplete = () => resolve();
       transaction.onerror = () =>
         reject(transaction.error ?? new Error("Falha ao guardar dados."));
-      transaction.onabort = () =>
-        reject(transaction.error ?? new Error("Operação cancelada."));
-    });
-  }
-
-  public async delete(
-    storeName: StoreName,
-    key: IDBValidKey | IDBKeyRange,
-  ): Promise<void> {
-    const database = await openDatabase();
-
-    return new Promise((resolve, reject) => {
-      const transaction = database.transaction(storeName, "readwrite");
-      transaction.objectStore(storeName).delete(key);
-
-      transaction.oncomplete = () => resolve();
-      transaction.onerror = () =>
-        reject(transaction.error ?? new Error("Falha ao eliminar dados."));
     });
   }
 }
