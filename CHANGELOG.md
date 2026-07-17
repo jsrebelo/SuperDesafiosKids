@@ -1,16 +1,15 @@
 # Changelog
 
-## v0.5.0
+## v0.6.0
 
 ### Adicionado
 
-- Arquitetura em camadas para o MVP.
-- Definição dos módulos principais.
-- Modelo inicial de dados.
-- Estratégia Offline First.
-- Estratégia de sincronização futura.
-- Regras de gestão de estado.
-- Regras de tratamento de erros e logging.
-- Requisitos de desempenho.
-- Diagramas Mermaid.
-- ADR-001 a ADR-004.
+- Guia de UI/UX infantil.
+- Design System inicial.
+- Tokens de cor, tipografia, espaçamento e movimento.
+- Catálogo inicial de componentes.
+- Regras de navegação e responsividade.
+- Estados de feedback e erro.
+- Regras de acessibilidade visual.
+- Fluxos Mermaid.
+- Critérios de aceitação.

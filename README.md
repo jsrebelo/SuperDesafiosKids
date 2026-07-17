@@ -1,23 +1,23 @@
-# Super Desafios Kids — Architecture Pack v0.5
+# Super Desafios Kids — UI/UX & Design System Pack v0.6
 
-Este pacote define a arquitetura técnica inicial da plataforma.
+Este pacote define a experiência visual e de interação do Super Desafios Kids.
 
-## Conteúdo principal
+## Conteúdo
 
-- Arquitetura em camadas
-- Stack tecnológica
-- Estrutura de pastas
-- Módulos e responsabilidades
-- Modelo de dados
-- Gestão de estado
-- Estratégia offline
-- Sincronização futura
-- Tratamento de erros
-- Desempenho
-- Diagramas Mermaid
-- Registos de decisões arquiteturais
+- Princípios de UX infantil
+- Navegação
+- Sistema de cores
+- Tipografia
+- Espaçamento
+- Componentes reutilizáveis
+- Estados e feedback
+- Animações
+- Responsividade
+- Acessibilidade visual
+- Diagramas de fluxo
+- Critérios de aceitação para implementação
 
 ## Estado
 
-Versão documental: `0.5.0`  
+Versão documental: `0.6.0`  
 Estado: `Draft para implementação do MVP`
