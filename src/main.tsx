@@ -3,6 +3,7 @@ import { createRoot } from "react-dom/client";
 import { App } from "./app/App";
 import "./shared/styles/global.css";
 import "./shared/styles/math.css";
+import "./shared/styles/rewards.css";
 
 const rootElement = document.getElementById("root");
 
