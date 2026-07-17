@@ -31,6 +31,14 @@ export interface SubmitWordAnswerOutput {
   readonly starsEarned: number;
 }
 
+function createDefaultId(): string {
+  if (typeof crypto !== "undefined" && typeof crypto.randomUUID === "function") {
+    return crypto.randomUUID();
+  }
+
+  return `attempt-${Math.random().toString(36).slice(2)}-${Date.now()}`;
+}
+
 export class SubmitWordAnswer {
   public constructor(
     private readonly progressRepository: ProgressRepository,
@@ -38,7 +46,7 @@ export class SubmitWordAnswer {
     private readonly attemptRepository: AttemptRepository,
     private readonly engine: AdaptiveLearningEngine,
     private readonly rewardCalculator: RewardCalculator,
-    private readonly createId: () => string = crypto.randomUUID,
+    private readonly createId: () => string = createDefaultId,
   ) {}
 
   public async execute(

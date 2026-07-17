@@ -12,8 +12,18 @@ class MemoryProfileRepository implements ProfileRepository {
     this.profiles.push(profile);
   }
 
+  public async update(profile: ChildProfile): Promise<void> {
+    this.profiles = this.profiles.map((item) =>
+      item.id === profile.id ? profile : item,
+    );
+  }
+
   public async list(): Promise<ChildProfile[]> {
     return this.profiles;
+  }
+
+  public async findById(profileId: string): Promise<ChildProfile | null> {
+    return this.profiles.find((profile) => profile.id === profileId) ?? null;
   }
 
   public async setActive(profileId: string): Promise<void> {
@@ -21,6 +31,14 @@ class MemoryProfileRepository implements ProfileRepository {
       ...profile,
       isActive: profile.id === profileId,
     }));
+  }
+
+  public async archive(profileId: string): Promise<void> {
+    this.profiles = this.profiles.map((profile) =>
+      profile.id === profileId
+        ? { ...profile, archivedAt: new Date().toISOString(), isActive: false }
+        : profile,
+    );
   }
 }
 
