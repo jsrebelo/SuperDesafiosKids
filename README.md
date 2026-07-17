@@ -1,22 +1,23 @@
-# Super Desafios Kids — Codex & Development Workflow Pack v0.8
+# Super Desafios Kids — Testing, Security & Release Pack v0.9
 
-Este pacote define como o Codex e qualquer programador devem trabalhar no projeto.
+Este pacote define como validar, proteger e publicar o Super Desafios Kids.
 
 ## Conteúdo
 
-- Guia principal para o Codex
-- Regras de arquitetura e código
-- Convenções de nomes
-- Regras de componentes
-- Regras de testes
-- Fluxo de tarefas
-- Revisão de código
-- Definition of Done
-- Prompts reutilizáveis
-- Templates de especificação, tarefa, bug, sprint e ADR
-- Critérios de aceitação para alterações geradas por IA
+- Estratégia completa de testes
+- Testes unitários, integração, UI e end-to-end
+- Matriz de dispositivos
+- Gestão de bugs
+- Privacidade e segurança infantil
+- Gestão de consentimento
+- Segurança de dependências e armazenamento
+- Versionamento e releases
+- Publicação Web, Android e iOS
+- Checklist de lançamento
+- Plano de rollback
+- Critérios de aceitação para release
 
 ## Estado
 
-Versão documental: `0.8.0`  
-Estado: `Draft operacional`
+Versão documental: `0.9.0`  
+Estado: `Draft operacional para pré-MVP`
