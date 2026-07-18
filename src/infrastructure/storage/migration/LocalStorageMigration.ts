@@ -16,6 +16,7 @@ const KEYS = {
   rewards: "sdk.rewardWallets.v1",
   dailyUsage: "sdk.dailyUsage.v1",
   settings: "sdk.appSettings.v1",
+  parentPin: "sdk.parentPinHash.v1",
 } as const;
 
 export class LocalStorageMigration {
@@ -24,6 +25,8 @@ export class LocalStorageMigration {
   ) {}
 
   public async run(): Promise<void> {
+    await this.copyParentPin();
+
     const migrated = await this.client.get<{ key: string; value: boolean }>(
       STORES.metadata,
       MIGRATION_KEY,
@@ -52,6 +55,21 @@ export class LocalStorageMigration {
       value: true,
       migratedAt: new Date().toISOString(),
     });
+  }
+
+  private async copyParentPin(): Promise<void> {
+    const current = await this.client.get<{ pinHash: string }>(
+      STORES.settings,
+      "parent-access",
+    );
+    const parentPinHash = window.localStorage.getItem(KEYS.parentPin);
+
+    if (!current && parentPinHash) {
+      await this.client.put(STORES.settings, {
+        id: "parent-access",
+        pinHash: parentPinHash,
+      });
+    }
   }
 
   private async copyArray<T>(

@@ -16,6 +16,7 @@ interface Props {
 }
 
 const ages: ChildAge[] = [5, 6, 7, 8, 9, 10];
+const avatars = ["raposa", "panda", "robot", "dinossauro"] as const;
 
 export function ProfileManagementScreen({
   repository,
@@ -114,6 +115,24 @@ export function ProfileManagementScreen({
                 {ages.map((age) => (
                   <option key={age} value={age}>
                     {age} anos
+                  </option>
+                ))}
+              </select>
+            </label>
+
+            <label>
+              Avatar
+              <select
+                onChange={(event) =>
+                  updateLocal(profile.id, {
+                    avatarId: event.target.value,
+                  })
+                }
+                value={profile.avatarId}
+              >
+                {avatars.map((avatar) => (
+                  <option key={avatar} value={avatar}>
+                    {avatar}
                   </option>
                 ))}
               </select>

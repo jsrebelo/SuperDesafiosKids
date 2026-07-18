@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" role="img" aria-label="Super Desafios Kids">
+  <rect width="512" height="512" rx="112" fill="#5b3cc4" />
+  <path d="M256 78l45 91 101 15-73 71 17 101-90-47-90 47 17-101-73-71 101-15z" fill="#ffd95a" />
+  <circle cx="196" cy="235" r="18" fill="#202436" />
+  <circle cx="316" cy="235" r="18" fill="#202436" />
+  <path d="M190 280c18 40 114 40 132 0" fill="none" stroke="#202436" stroke-linecap="round" stroke-width="18" />
+</svg>

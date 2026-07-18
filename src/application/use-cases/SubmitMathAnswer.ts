@@ -38,7 +38,7 @@ export class SubmitMathAnswer {
     private readonly attemptRepository: AttemptRepository,
     private readonly engine: AdaptiveLearningEngine,
     private readonly rewardCalculator: RewardCalculator,
-    private readonly createId: () => string = crypto.randomUUID,
+    private readonly createId: () => string = () => crypto.randomUUID(),
   ) {}
 
   public async execute(
