@@ -4,7 +4,12 @@ import type { GetParentDashboard } from "../../application/use-cases/GetParentDa
 import type { ProfileStatistics } from "../../domain/statistics/ProfileStatistics";
 import type { RewardWallet } from "../../domain/rewards/RewardWallet";
 import type { SkillProgress } from "../../domain/learning/Skill";
+import type { ImportProfileData } from "../../application/use-cases/ImportProfileData";
+import type { ExportProfileData } from "../../application/use-cases/ExportProfileData";
 import { Button } from "../../shared/components/Button";
+import { ParentExportSection } from "./ParentExportSection";
+import { ParentImportSection } from "./ParentImportSection";
+import { ParentReportSection } from "./ParentReportSection";
 
 interface DashboardData {
   readonly statistics: ProfileStatistics;
@@ -15,30 +20,41 @@ interface DashboardData {
 interface Props {
   readonly profile: ChildProfile;
   readonly getParentDashboard: GetParentDashboard;
+  readonly importProfileData: ImportProfileData;
+  readonly exportProfileData: ExportProfileData;
   readonly dailyLimitMinutes: number;
   readonly onDailyLimitChange: (minutes: number) => void;
+  readonly onManageProfiles: () => void;
+  readonly onOpenAccessibility: () => void;
   readonly onExit: () => void;
 }
 
 export function ParentDashboardScreen({
   profile,
   getParentDashboard,
+  importProfileData,
+  exportProfileData,
   dailyLimitMinutes,
   onDailyLimitChange,
+  onManageProfiles,
+  onOpenAccessibility,
   onExit,
 }: Props) {
   const [data, setData] = useState<DashboardData | null>(null);
+  const [refreshKey, setRefreshKey] = useState(0);
 
   useEffect(() => {
     void getParentDashboard
       .execute(profile.id)
       .then((result) => setData(result));
-  }, [getParentDashboard, profile.id]);
+  }, [getParentDashboard, profile.id, refreshKey]);
 
   return (
     <main className="page-shell">
       <header className="screen-header">
         <Button onClick={onExit}>Voltar ao início</Button>
+        <Button onClick={onManageProfiles}>Gerir perfis</Button>
+        <Button onClick={onOpenAccessibility}>Acessibilidade</Button>
       </header>
 
       <section className="hero-card">
@@ -87,6 +103,12 @@ export function ParentDashboardScreen({
               </ul>
             )}
           </section>
+          <ParentReportSection
+            profile={profile}
+            statistics={data.statistics}
+            wallet={data.wallet}
+            progress={data.progress}
+          />
         </>
       ) : (
         <p>A carregar estatísticas…</p>
@@ -108,6 +130,14 @@ export function ParentDashboardScreen({
         </label>
         <p>Usa 0 para não definir limite.</p>
       </section>
+      <ParentExportSection
+        profile={profile}
+        exportProfileData={exportProfileData}
+      />
+      <ParentImportSection
+        importProfileData={importProfileData}
+        onImported={() => setRefreshKey((value) => value + 1)}
+      />
     </main>
   );
 }

@@ -1,20 +1,26 @@
-import { useMemo, useRef, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import type { ChildProfile } from "../../domain/profiles/ChildProfile";
 import { MissingLetterGenerator } from "../../domain/words/MissingLetterGenerator";
 import type { MissingLetterExercise } from "../../domain/words/WordEntry";
 import { portugueseWords } from "../../data/words/pt-PT";
 import type { SubmitWordAnswer } from "../../application/use-cases/SubmitWordAnswer";
 import { Button } from "../../shared/components/Button";
+import type { FinishTrackedSession } from "../../application/use-cases/FinishTrackedSession";
+import { SessionTracker } from "../../domain/sessions/SessionTracker";
 
 interface Props {
   readonly profile: ChildProfile;
   readonly submitWordAnswer: SubmitWordAnswer;
+  readonly finishTrackedSession: FinishTrackedSession;
+  readonly onUsageRecorded: () => Promise<void>;
   readonly onExit: () => void;
 }
 
 export function WordGameScreen({
   profile,
   submitWordAnswer,
+  finishTrackedSession,
+  onUsageRecorded,
   onExit,
 }: Props) {
   const generator = useMemo(
@@ -27,7 +33,21 @@ export function WordGameScreen({
   );
   const [feedback, setFeedback] = useState("");
   const [locked, setLocked] = useState(false);
+  const [finishing, setFinishing] = useState(false);
   const startedAt = useRef(performance.now());
+  const tracker = useRef(new SessionTracker());
+
+  useEffect(() => {
+    tracker.current.start();
+  }, []);
+
+  async function finishSession() {
+    if (finishing) return;
+    setFinishing(true);
+    await finishTrackedSession.execute(profile.id, tracker.current);
+    await onUsageRecorded();
+    onExit();
+  }
 
   async function answer(selectedAnswer: string) {
     if (locked) return;
@@ -61,7 +81,9 @@ export function WordGameScreen({
   return (
     <main className="page-shell">
       <header className="screen-header">
-        <Button onClick={onExit}>Voltar ao início</Button>
+        <Button disabled={finishing} onClick={() => void finishSession()}>
+          Voltar ao início
+        </Button>
       </header>
 
       <section className="hero-card">

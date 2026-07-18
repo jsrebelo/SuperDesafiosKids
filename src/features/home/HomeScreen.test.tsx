@@ -20,12 +20,23 @@ describe("HomeScreen", () => {
     render(
       <HomeScreen
         profile={profile}
+        wallet={{
+          profileId: profile.id,
+          xp: 0,
+          coins: 0,
+          stars: 0,
+          updatedAt: "2026-07-17T10:00:00.000Z",
+        }}
         onOpenMath={onOpenMath}
+        onOpenWords={() => undefined}
+        onOpenParents={() => undefined}
         onChangeProfile={() => undefined}
       />,
     );
 
-    fireEvent.click(screen.getByRole("button", { name: "Jogar" }));
+    fireEvent.click(
+      screen.getByRole("button", { name: "Jogar Matemática" }),
+    );
     expect(onOpenMath).toHaveBeenCalledOnce();
   });
 });

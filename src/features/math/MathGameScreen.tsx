@@ -1,20 +1,24 @@
-import { useMemo, useRef, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import type { ChildProfile } from "../../domain/profiles/ChildProfile";
-import type { SkillId } from "../../domain/learning/Skill";
+import type { MathSkillId } from "../../domain/exercises/MathExercise";
 import { MathExerciseGenerator } from "../../domain/exercises/MathExerciseGenerator";
 import type { MathExercise } from "../../domain/exercises/MathExercise";
 import type { SubmitMathAnswer } from "../../application/use-cases/SubmitMathAnswer";
 import { Button } from "../../shared/components/Button";
 import type { LearningSessionSummary } from "../../domain/sessions/LearningSession";
 import { SessionSummary } from "./SessionSummary";
+import type { FinishTrackedSession } from "../../application/use-cases/FinishTrackedSession";
+import { SessionTracker } from "../../domain/sessions/SessionTracker";
 
 interface Props {
   readonly profile: ChildProfile;
   readonly submitMathAnswer: SubmitMathAnswer;
+  readonly finishTrackedSession: FinishTrackedSession;
+  readonly onUsageRecorded: () => Promise<void>;
   readonly onExit: () => void;
 }
 
-const skills: readonly SkillId[] = [
+const skills: readonly MathSkillId[] = [
   "math.counting",
   "math.addition",
   "math.subtraction",
@@ -25,16 +29,19 @@ const skills: readonly SkillId[] = [
 export function MathGameScreen({
   profile,
   submitMathAnswer,
+  finishTrackedSession,
+  onUsageRecorded,
   onExit,
 }: Props) {
   const generator = useMemo(() => new MathExerciseGenerator(), []);
-  const [skillId, setSkillId] = useState<SkillId>("math.addition");
+  const [skillId, setSkillId] = useState<MathSkillId>("math.addition");
   const [level, setLevel] = useState(initialLevel(profile.age));
   const [exercise, setExercise] = useState<MathExercise>(() =>
     generator.generate("math.addition", initialLevel(profile.age)),
   );
   const [feedback, setFeedback] = useState("");
   const [locked, setLocked] = useState(false);
+  const [finishing, setFinishing] = useState(false);
   const [summary, setSummary] = useState<LearningSessionSummary | null>(null);
 
   const sessionStartedAt = useRef(new Date());
@@ -44,8 +51,13 @@ export function MathGameScreen({
   const xpEarned = useRef(0);
   const coinsEarned = useRef(0);
   const starsEarned = useRef(0);
+  const tracker = useRef(new SessionTracker());
 
-  function changeSkill(next: SkillId) {
+  useEffect(() => {
+    tracker.current.start();
+  }, []);
+
+  function changeSkill(next: MathSkillId) {
     if (locked) return;
 
     setSkillId(next);
@@ -93,7 +105,11 @@ export function MathGameScreen({
     }, 900);
   }
 
-  function finishSession() {
+  async function finishSession() {
+    if (finishing) return;
+    setFinishing(true);
+    await finishTrackedSession.execute(profile.id, tracker.current);
+    await onUsageRecorded();
     setSummary({
       profileId: profile.id,
       startedAt: sessionStartedAt.current.toISOString(),
@@ -113,6 +129,8 @@ export function MathGameScreen({
         summary={summary}
         onContinue={() => {
           setSummary(null);
+          setFinishing(false);
+          tracker.current.start();
           sessionStartedAt.current = new Date();
           attempts.current = 0;
           correctAnswers.current = 0;
@@ -129,7 +147,9 @@ export function MathGameScreen({
   return (
     <main className="page-shell">
       <header className="screen-header">
-        <Button onClick={finishSession}>Terminar sessão</Button>
+        <Button disabled={finishing} onClick={() => void finishSession()}>
+          Terminar sessão
+        </Button>
       </header>
 
       <section className="hero-card">
@@ -179,8 +199,8 @@ function initialLevel(age: number): number {
   return age <= 5 ? 1 : age <= 6 ? 2 : age <= 8 ? 3 : age <= 9 ? 4 : 5;
 }
 
-function label(skill: SkillId): string {
-  const labels: Record<SkillId, string> = {
+function label(skill: MathSkillId): string {
+  const labels: Record<MathSkillId, string> = {
     "math.counting": "Contar",
     "math.addition": "Somar",
     "math.subtraction": "Subtrair",

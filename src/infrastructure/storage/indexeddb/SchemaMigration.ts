@@ -36,7 +36,7 @@ export function openMigratedDatabase(): Promise<IDBDatabase> {
   return new Promise((resolve, reject) => {
     const request = indexedDB.open(DATABASE_NAME, DATABASE_VERSION);
 
-    request.onupgradeneeded = () => {
+    request.onupgradeneeded = (event) => {
       const database = request.result;
       const transaction = request.transaction;
 
@@ -44,7 +44,7 @@ export function openMigratedDatabase(): Promise<IDBDatabase> {
         throw new Error("Transação de migração indisponível.");
       }
 
-      const oldVersion = request.oldVersion;
+      const oldVersion = event.oldVersion;
 
       for (const migration of schemaMigrations) {
         if (migration.version > oldVersion) {

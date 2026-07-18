@@ -6,6 +6,8 @@ import type { RewardWallet } from "../../domain/rewards/RewardWallet";
 import { AdaptiveLearningEngine } from "../../domain/learning/AdaptiveLearningEngine";
 import { RewardCalculator } from "../../domain/rewards/RewardCalculator";
 import { SubmitWordAnswer } from "./SubmitWordAnswer";
+import type { AttemptRepository } from "../ports/AttemptRepository";
+import type { ExerciseAttempt } from "../../domain/attempts/ExerciseAttempt";
 
 class MemoryProgressRepository implements ProgressRepository {
   private value: SkillProgress | null = null;
@@ -34,11 +36,24 @@ class MemoryRewardRepository implements RewardRepository {
   }
 }
 
+class MemoryAttemptRepository implements AttemptRepository {
+  public attempts: ExerciseAttempt[] = [];
+
+  public async save(attempt: ExerciseAttempt): Promise<void> {
+    this.attempts.push(attempt);
+  }
+
+  public async listByProfile(profileId: string): Promise<ExerciseAttempt[]> {
+    return this.attempts.filter((attempt) => attempt.profileId === profileId);
+  }
+}
+
 describe("SubmitWordAnswer", () => {
   it("atribui recompensa por resposta correta", async () => {
     const useCase = new SubmitWordAnswer(
       new MemoryProgressRepository(),
       new MemoryRewardRepository(),
+      new MemoryAttemptRepository(),
       new AdaptiveLearningEngine(),
       new RewardCalculator(),
     );

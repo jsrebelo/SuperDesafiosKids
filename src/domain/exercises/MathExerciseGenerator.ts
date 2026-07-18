@@ -1,17 +1,17 @@
 import {
   defaultRandomSource,
   type MathExercise,
+  type MathSkillId,
   type RandomSource,
 } from "./MathExercise";
-import type { SkillId } from "../learning/Skill";
 
 export class MathExerciseGenerator {
   public constructor(
     private readonly random: RandomSource = defaultRandomSource,
-    private readonly createId: () => string = crypto.randomUUID,
+    private readonly createId: () => string = () => crypto.randomUUID(),
   ) {}
 
-  public generate(skillId: SkillId, level: number): MathExercise {
+  public generate(skillId: MathSkillId, level: number): MathExercise {
     switch (skillId) {
       case "math.counting":
         return this.counting(level);
@@ -103,7 +103,7 @@ export class MathExerciseGenerator {
   }
 
   private build(
-    skillId: SkillId,
+    skillId: MathSkillId,
     prompt: string,
     answer: number,
     difficulty: number,

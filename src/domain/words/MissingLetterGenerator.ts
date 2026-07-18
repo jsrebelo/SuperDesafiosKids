@@ -14,7 +14,7 @@ export class MissingLetterGenerator {
   public constructor(
     private readonly words: readonly WordEntry[],
     private readonly random: RandomSource = defaultRandomSource,
-    private readonly createId: () => string = crypto.randomUUID,
+    private readonly createId: () => string = () => crypto.randomUUID(),
   ) {}
 
   public generate(age: number, level: number): MissingLetterExercise {
@@ -80,12 +80,19 @@ export class MissingLetterGenerator {
 
   private createOptions(answer: string): readonly string[] {
     const options = new Set<string>([answer]);
+    let guard = 0;
 
-    while (options.size < 4) {
+    while (options.size < 4 && guard < ALPHABET.length * 2) {
+      guard += 1;
       const candidate = ALPHABET[this.integer(0, ALPHABET.length - 1)];
       if (candidate) {
         options.add(candidate);
       }
+    }
+
+    for (const candidate of ALPHABET) {
+      if (options.size >= 4) break;
+      options.add(candidate);
     }
 
     return this.shuffle([...options]);
